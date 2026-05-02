@@ -1,0 +1,36 @@
+# config.yaml
+# ─────────────────────────────────────────────────────────────────────
+# All non-sensitive configuration lives here.
+# Sensitive values (API keys) go in .env — never here.
+# ─────────────────────────────────────────────────────────────────────
+
+# ── Classifier ───────────────────────────────────────────────────────
+classifier_model: "logistic_regression"
+max_seq_len: 128
+train_epochs: 3
+train_batch_size: 16
+learning_rate: 0.00002
+
+# ── Embeddings (semantic novelty) ────────────────────────────────────
+embedding_model: "all-MiniLM-L6-v2"
+
+# ── Synthetic Generation ─────────────────────────────────────────────
+synth_pool_multiplier: 3
+synth_batch_size: 10          # ✅ reduce load (VERY IMPORTANT)
+llm_temperature: 0.85
+llm_max_tokens: 512
+llm_max_retries: 5            # ✅ more retries
+llm_retry_wait: 15            # ✅ longer wait
+# ── Pipeline ─────────────────────────────────────────────────────────
+num_iterations: 20
+random_seed: 42
+min_real_samples: 30         # minimum rows required in user CSV
+early_stop_patience: 5        # stop if F1 doesn't improve for N iterations
+early_stop_delta: 0.001       # minimum F1 improvement to count
+
+# ── Data Splits ──────────────────────────────────────────────────────
+val_ratio: 0.2
+test_ratio: 0.2
+
+# ── Outputs ──────────────────────────────────────────────────────────
+output_dir: "outputs"

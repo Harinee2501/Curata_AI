@@ -1,0 +1,35 @@
+{
+  "dataset": "C:\\Users\\HARINE~1\\AppData\\Local\\Temp\\tmpje9uq0hm\\Iris_noisy.csv",
+  "label_col": "Species",
+  "num_classes": 3,
+  "target_size": 50,
+  "curated_size": 50,
+  "llm_model": "llama-3.1-8b-instant",
+  "baseline_real_only": {
+    "val_f1": 0.25,
+    "test_f1": 0.3953962703962704
+  },
+  "naive_augmentation": {
+    "val_f1": 0.3544973544973545,
+    "test_f1": 0.5519576719576719
+  },
+  "bandit_guided": {
+    "test_f1": 0.65,
+    "bandit_summary": {
+      "total_steps": 80,
+      "total_accepts": 50,
+      "total_rejects": 30,
+      "acceptance_rate": 0.625,
+      "alpha": [
+        1.0,
+        1.0
+      ],
+      "beta": [
+        1.0,
+        1.0
+      ],
+      "cumulative_reward_accept": 0.0,
+      "cumulative_reward_reject": 0.0
+    }
+  }
+}
