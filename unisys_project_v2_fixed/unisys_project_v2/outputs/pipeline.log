@@ -1,0 +1,428 @@
+2026-04-13 09:30:02 | INFO     | Logs → outputs\pipeline.log
+2026-04-13 09:30:02 | INFO     | ============================================================
+2026-04-13 09:30:02 | INFO     | RL-Guided Synthetic Data Selection — Starting
+2026-04-13 09:30:02 | INFO     | ============================================================
+2026-04-13 09:30:02 | INFO     | LLM: llama-3.1-8b-instant via Groq
+2026-04-13 09:30:02 | INFO     | Device: cpu
+2026-04-13 09:30:03 | INFO     | Step 1: Loading dataset
+2026-04-13 09:30:03 | ERROR    | [Errno 2] No such file or directory: 'your_data.csv'
+2026-04-13 09:30:39 | INFO     | Logs → outputs\pipeline.log
+2026-04-13 09:30:39 | INFO     | ============================================================
+2026-04-13 09:30:39 | INFO     | RL-Guided Synthetic Data Selection — Starting
+2026-04-13 09:30:39 | INFO     | ============================================================
+2026-04-13 09:30:39 | INFO     | LLM: llama-3.1-8b-instant via Groq
+2026-04-13 09:30:39 | INFO     | Device: cpu
+2026-04-13 09:30:40 | INFO     | Step 1: Loading dataset
+2026-04-13 09:30:48 | INFO     | Label column selected: 'Species'
+2026-04-13 09:30:48 | INFO     | Loaded CSV: Iris.csv — 150 rows, 6 columns
+2026-04-13 09:30:48 | INFO     | Detected 3 classes: ['Iris-setosa', 'Iris-versicolor', 'Iris-virginica']
+2026-04-13 09:30:48 | INFO     | Content columns: ['Id', 'SepalLengthCm', 'SepalWidthCm', 'PetalLengthCm', 'PetalWidthCm']
+2026-04-13 09:30:49 | INFO     | Split — Train: 90 | Val: 30 | Test: 30
+2026-04-13 09:30:49 | INFO     | Classes (3): ['Iris-setosa', 'Iris-versicolor', 'Iris-virginica']
+2026-04-13 09:30:49 | INFO     | Content columns: ['Id', 'SepalLengthCm', 'SepalWidthCm', 'PetalLengthCm', 'PetalWidthCm']
+2026-04-13 09:30:49 | INFO     | Step 2: Generating synthetic pool via Groq LLM
+2026-04-13 09:30:49 | INFO     | Generating synthetic pool of 600 rows (target: 200, multiplier: 3x)
+2026-04-13 09:34:29 | INFO     |   Generated 50/600 synthetic rows (0 failed)...
+2026-04-13 09:38:25 | INFO     |   Generated 100/600 synthetic rows (0 failed)...
+2026-04-13 09:42:24 | INFO     |   Generated 150/600 synthetic rows (0 failed)...
+2026-04-13 09:46:23 | INFO     |   Generated 200/600 synthetic rows (0 failed)...
+2026-04-13 09:50:24 | INFO     |   Generated 250/600 synthetic rows (0 failed)...
+2026-04-13 09:54:20 | INFO     |   Generated 300/600 synthetic rows (0 failed)...
+2026-04-13 09:58:20 | INFO     |   Generated 350/600 synthetic rows (0 failed)...
+2026-04-13 10:02:19 | INFO     |   Generated 400/600 synthetic rows (0 failed)...
+2026-04-13 10:03:34 | WARNING  | Rate limit hit. Waiting 5s before retry 1...
+2026-04-13 10:06:22 | INFO     |   Generated 450/600 synthetic rows (0 failed)...
+2026-04-13 10:10:21 | INFO     |   Generated 500/600 synthetic rows (0 failed)...
+2026-04-13 10:14:20 | INFO     |   Generated 550/600 synthetic rows (0 failed)...
+2026-04-13 10:18:19 | INFO     | Synthetic pool complete: 600 generated, 0 failed (100.0% success rate)
+2026-04-13 10:18:19 | INFO     | Step 3: Pre-computing real data embeddings
+2026-04-13 10:18:19 | ERROR    | Unexpected error: module 'config' has no attribute 'EMBEDDING_MODEL'
+Traceback (most recent call last):
+
+> File "C:\Users\Harinee Manikandan\Downloads\rl_synth_selection_production\rl_synth_selection\pipeline.py", line 440, in <module>
+    run_pipeline(
+    └ <function run_pipeline at 0x00000233785BE710>
+
+  File "C:\Users\Harinee Manikandan\Downloads\rl_synth_selection_production\rl_synth_selection\pipeline.py", line 249, in run_pipeline
+    real_embeddings = embed(train_texts)
+                      │     └ ['Id: 64 | SepalLengthCm: 6.1 | SepalWidthCm: 2.9 | PetalLengthCm: 4.7 | PetalWidthCm: 1.4 | _label_int: 1', 'Id: 134 | Sepal...
+                      └ <function embed at 0x00000233785BE0E0>
+
+  File "C:\Users\Harinee Manikandan\Downloads\rl_synth_selection_production\rl_synth_selection\features\novelty.py", line 33, in embed
+    embedder   = _get_embedder()
+                 └ <function _get_embedder at 0x0000023378245870>
+
+  File "C:\Users\Harinee Manikandan\Downloads\rl_synth_selection_production\rl_synth_selection\features\novelty.py", line 26, in _get_embedder
+    print(f"[novelty] Loading embedding model '{config.EMBEDDING_MODEL}' ...")
+
+AttributeError: module 'config' has no attribute 'EMBEDDING_MODEL'
+2026-04-13 10:22:33 | INFO     | Logs → outputs\pipeline.log
+2026-04-13 10:22:33 | INFO     | ============================================================
+2026-04-13 10:22:33 | INFO     | RL-Guided Synthetic Data Selection — Starting
+2026-04-13 10:22:33 | INFO     | ============================================================
+2026-04-13 10:22:33 | INFO     | LLM: llama-3.1-8b-instant via Groq
+2026-04-13 10:22:33 | INFO     | Device: cpu
+2026-04-13 10:22:34 | INFO     | Step 1: Loading dataset
+2026-04-13 10:22:37 | INFO     | Label column selected: 'Species'
+2026-04-13 10:22:37 | INFO     | Loaded CSV: Iris.csv — 150 rows, 6 columns
+2026-04-13 10:22:37 | INFO     | Detected 3 classes: ['Iris-setosa', 'Iris-versicolor', 'Iris-virginica']
+2026-04-13 10:22:37 | INFO     | Content columns: ['Id', 'SepalLengthCm', 'SepalWidthCm', 'PetalLengthCm', 'PetalWidthCm']
+2026-04-13 10:22:37 | INFO     | Split — Train: 90 | Val: 30 | Test: 30
+2026-04-13 10:22:37 | INFO     | Classes (3): ['Iris-setosa', 'Iris-versicolor', 'Iris-virginica']
+2026-04-13 10:22:37 | INFO     | Content columns: ['Id', 'SepalLengthCm', 'SepalWidthCm', 'PetalLengthCm', 'PetalWidthCm']
+2026-04-13 10:22:37 | INFO     | Step 2: Generating synthetic pool via Groq LLM
+2026-04-13 10:22:37 | INFO     | Generating synthetic pool of 150 rows (target: 50, multiplier: 3x)
+2026-04-13 10:25:38 | INFO     |   Generated 50/150 synthetic rows (0 failed)...
+2026-04-13 10:29:37 | INFO     |   Generated 100/150 synthetic rows (0 failed)...
+2026-04-13 10:33:36 | INFO     | Synthetic pool complete: 150 generated, 0 failed (100.0% success rate)
+2026-04-13 10:33:36 | INFO     | Step 3: Pre-computing real data embeddings
+2026-04-13 10:33:44 | INFO     | Step 4: Baseline — real data only
+2026-04-13 10:33:44 | INFO     | ── Real Only ──
+2026-04-13 10:33:44 | ERROR    | Unexpected error: '<=' not supported between instances of 'float' and 'str'
+Traceback (most recent call last):
+
+> File "C:\Users\Harinee Manikandan\Downloads\rl_synth_selection_production\rl_synth_selection\pipeline.py", line 440, in <module>
+    run_pipeline(
+    └ <function run_pipeline at 0x0000016C104AA710>
+
+  File "C:\Users\Harinee Manikandan\Downloads\rl_synth_selection_production\rl_synth_selection\pipeline.py", line 253, in run_pipeline
+    baseline_results = run_baseline(
+                       └ <function run_baseline at 0x0000016C104AA5F0>
+
+  File "C:\Users\Harinee Manikandan\Downloads\rl_synth_selection_production\rl_synth_selection\pipeline.py", line 153, in run_baseline
+    train(model, train_ds, device)
+    │     │      │         └ 'cpu'
+    │     │      └ <data.dataset_utils.TextClassificationDataset object at 0x0000016C1272B6A0>
+    │     └ DistilBertForSequenceClassification(
+    │         (distilbert): DistilBertModel(
+    │           (embeddings): Embeddings(
+    │             (word_embeddings): ...
+    └ <function train at 0x0000016C10138C10>
+
+  File "C:\Users\Harinee Manikandan\Downloads\rl_synth_selection_production\rl_synth_selection\classifier\train.py", line 35, in train
+    optimizer = AdamW(model.parameters(), lr=cfg.LEARNING_RATE)
+                │     │     │                │   └ '2e-5'
+                │     │     │                └ <config.Config object at 0x0000016C6FAD8AC0>
+                │     │     └ <function Module.parameters at 0x0000016C6D018550>
+                │     └ DistilBertForSequenceClassification(
+                │         (distilbert): DistilBertModel(
+                │           (embeddings): Embeddings(
+                │             (word_embeddings): ...
+                └ <class 'torch.optim.adamw.AdamW'>
+
+  File "C:\Users\Harinee Manikandan\AppData\Local\Programs\Python\Python310\lib\site-packages\torch\optim\adamw.py", line 55, in __init__
+    if not 0.0 <= lr:
+                  └ '2e-5'
+
+TypeError: '<=' not supported between instances of 'float' and 'str'
+2026-04-13 10:40:48 | INFO     | Logs → outputs\pipeline.log
+2026-04-13 10:40:48 | INFO     | ============================================================
+2026-04-13 10:40:48 | INFO     | RL-Guided Synthetic Data Selection — Starting
+2026-04-13 10:40:48 | INFO     | ============================================================
+2026-04-13 10:40:48 | INFO     | LLM: llama-3.1-8b-instant via Groq
+2026-04-13 10:40:48 | INFO     | Device: cpu
+2026-04-13 10:40:49 | INFO     | Step 1: Loading dataset
+2026-04-13 10:40:52 | INFO     | Label column selected: 'Species'
+2026-04-13 10:40:52 | INFO     | Loaded CSV: Iris.csv — 150 rows, 6 columns
+2026-04-13 10:40:52 | INFO     | Detected 3 classes: ['Iris-setosa', 'Iris-versicolor', 'Iris-virginica']
+2026-04-13 10:40:52 | INFO     | Content columns: ['Id', 'SepalLengthCm', 'SepalWidthCm', 'PetalLengthCm', 'PetalWidthCm']
+2026-04-13 10:40:52 | INFO     | Split — Train: 90 | Val: 30 | Test: 30
+2026-04-13 10:40:52 | INFO     | Classes (3): ['Iris-setosa', 'Iris-versicolor', 'Iris-virginica']
+2026-04-13 10:40:52 | INFO     | Content columns: ['Id', 'SepalLengthCm', 'SepalWidthCm', 'PetalLengthCm', 'PetalWidthCm']
+2026-04-13 10:40:52 | INFO     | Step 2: Generating synthetic pool via Groq LLM
+2026-04-13 10:40:52 | INFO     | Generating synthetic pool of 60 rows (target: 20, multiplier: 3x)
+2026-04-13 10:44:18 | INFO     |   Generated 50/60 synthetic rows (0 failed)...
+2026-04-13 10:45:06 | INFO     | Synthetic pool complete: 60 generated, 0 failed (100.0% success rate)
+2026-04-13 10:45:06 | INFO     | Step 3: Pre-computing real data embeddings
+2026-04-13 10:45:11 | INFO     | Step 4: Baseline — real data only
+2026-04-13 10:45:12 | INFO     | ── Real Only ──
+2026-04-13 10:45:28 | DEBUG    |   [train] epoch 1 — avg loss: 1.0905
+2026-04-13 10:45:41 | DEBUG    |   [train] epoch 2 — avg loss: 1.0443
+2026-04-13 10:45:44 | INFO     |   Val F1: 0.1944  |  Test F1: 0.2460
+2026-04-13 10:45:44 | INFO     | Step 5: Naive augmentation — real + all synthetic
+2026-04-13 10:45:44 | INFO     | ── Naive Augmentation ──
+2026-04-13 10:46:12 | DEBUG    |   [train] epoch 1 — avg loss: 1.1045
+2026-04-13 10:46:39 | DEBUG    |   [train] epoch 2 — avg loss: 1.0742
+2026-04-13 10:46:42 | INFO     |   Val F1: 0.8643  |  Test F1: 0.7841
+2026-04-13 10:46:42 | INFO     | Step 6: Thompson Sampling bandit-guided selection
+2026-04-13 10:46:42 | INFO     | ThompsonBandit initialised — Beta(1,1) prior on both arms
+2026-04-13 10:46:59 | DEBUG    |   [train] epoch 1 — avg loss: 1.0945
+2026-04-13 10:47:15 | DEBUG    |   [train] epoch 2 — avg loss: 1.0568
+2026-04-13 10:47:16 | INFO     | [iter 0] Initial val F1: 0.4943
+2026-04-13 10:47:16 | ERROR    | Unexpected error: module 'config' has no attribute 'MAX_SEQ_LEN'
+Traceback (most recent call last):
+
+> File "C:\Users\Harinee Manikandan\Downloads\rl_synth_selection_production\rl_synth_selection\pipeline.py", line 440, in <module>
+    run_pipeline(
+    └ <function run_pipeline at 0x0000026A96CCE710>
+
+  File "C:\Users\Harinee Manikandan\Downloads\rl_synth_selection_production\rl_synth_selection\pipeline.py", line 316, in run_pipeline
+    probs            = get_probabilities(model, tokenizer, batch_texts, device)
+                       │                 │      │          │            └ 'cpu'
+                       │                 │      │          └ ['Id: 72 | SepalLengthCm: 5.1 | SepalWidthCm: 3.2 | PetalLengthCm: 1.3 | PetalWidthCm: 0.1', 'Id: 145 | SepalLengthCm: 6.9 | ...
+                       │                 │      └ DistilBertTokenizer(name_or_path='distilbert-base-uncased', vocab_size=30522, model_max_length=512, is_fast=False, padding_si...
+                       │                 └ DistilBertForSequenceClassification(
+                       │                     (distilbert): DistilBertModel(
+                       │                       (embeddings): Embeddings(
+                       │                         (word_embeddings): ...
+                       └ <function get_probabilities at 0x0000026A96959A20>
+
+  File "C:\Users\Harinee Manikandan\AppData\Local\Programs\Python\Python310\lib\site-packages\torch\utils\_contextlib.py", line 116, in decorate_context
+    return func(*args, **kwargs)
+           │     │       └ {}
+           │     └ (DistilBertForSequenceClassification(
+           │         (distilbert): DistilBertModel(
+           │           (embeddings): Embeddings(
+           │             (word_embeddings):...
+           └ <function get_probabilities at 0x0000026A96959990>
+
+  File "C:\Users\Harinee Manikandan\Downloads\rl_synth_selection_production\rl_synth_selection\classifier\evaluate.py", line 60, in get_probabilities
+    max_length=config.MAX_SEQ_LEN,
+               └ <module 'config' from 'C:\\Users\\Harinee Manikandan\\Downloads\\rl_synth_selection_production\\rl_synth_selection\\config.py'>
+
+AttributeError: module 'config' has no attribute 'MAX_SEQ_LEN'
+2026-04-13 10:48:35 | INFO     | Logs → outputs\pipeline.log
+2026-04-13 10:48:35 | INFO     | ============================================================
+2026-04-13 10:48:35 | INFO     | RL-Guided Synthetic Data Selection — Starting
+2026-04-13 10:48:35 | INFO     | ============================================================
+2026-04-13 10:48:35 | INFO     | LLM: llama-3.1-8b-instant via Groq
+2026-04-13 10:48:35 | INFO     | Device: cpu
+2026-04-13 10:48:37 | INFO     | Step 1: Loading dataset
+2026-04-13 10:48:51 | INFO     | Label column selected: 'Species'
+2026-04-13 10:48:51 | INFO     | Loaded CSV: Iris.csv — 150 rows, 6 columns
+2026-04-13 10:48:51 | INFO     | Detected 3 classes: ['Iris-setosa', 'Iris-versicolor', 'Iris-virginica']
+2026-04-13 10:48:51 | INFO     | Content columns: ['Id', 'SepalLengthCm', 'SepalWidthCm', 'PetalLengthCm', 'PetalWidthCm']
+2026-04-13 10:48:51 | INFO     | Split — Train: 90 | Val: 30 | Test: 30
+2026-04-13 10:48:51 | INFO     | Classes (3): ['Iris-setosa', 'Iris-versicolor', 'Iris-virginica']
+2026-04-13 10:48:51 | INFO     | Content columns: ['Id', 'SepalLengthCm', 'SepalWidthCm', 'PetalLengthCm', 'PetalWidthCm']
+2026-04-13 10:48:51 | INFO     | Step 2: Generating synthetic pool via Groq LLM
+2026-04-13 10:48:51 | INFO     | Generating synthetic pool of 60 rows (target: 20, multiplier: 3x)
+2026-04-13 10:51:51 | INFO     |   Generated 50/60 synthetic rows (0 failed)...
+2026-04-13 10:52:40 | INFO     | Synthetic pool complete: 60 generated, 0 failed (100.0% success rate)
+2026-04-13 10:52:40 | INFO     | Step 3: Pre-computing real data embeddings
+2026-04-13 10:52:45 | INFO     | Step 4: Baseline — real data only
+2026-04-13 10:52:46 | INFO     | ── Real Only ──
+2026-04-13 10:53:05 | DEBUG    |   [train] epoch 1 — avg loss: 1.0905
+2026-04-13 10:53:19 | DEBUG    |   [train] epoch 2 — avg loss: 1.0443
+2026-04-13 10:53:21 | INFO     |   Val F1: 0.1944  |  Test F1: 0.2460
+2026-04-13 10:53:21 | INFO     | Step 5: Naive augmentation — real + all synthetic
+2026-04-13 10:53:22 | INFO     | ── Naive Augmentation ──
+2026-04-13 10:53:49 | DEBUG    |   [train] epoch 1 — avg loss: 1.1058
+2026-04-13 10:54:30 | DEBUG    |   [train] epoch 2 — avg loss: 1.0767
+2026-04-13 10:54:35 | INFO     |   Val F1: 0.7608  |  Test F1: 0.6492
+2026-04-13 10:54:35 | INFO     | Step 6: Thompson Sampling bandit-guided selection
+2026-04-13 10:54:35 | INFO     | ThompsonBandit initialised — Beta(1,1) prior on both arms
+2026-04-13 10:54:52 | DEBUG    |   [train] epoch 1 — avg loss: 1.0945
+2026-04-13 10:55:10 | DEBUG    |   [train] epoch 2 — avg loss: 1.0568
+2026-04-13 10:55:11 | INFO     | [iter 0] Initial val F1: 0.4943
+2026-04-13 10:55:11 | ERROR    | Unexpected error: module 'config' has no attribute 'MAX_SEQ_LEN'
+Traceback (most recent call last):
+
+> File "C:\Users\Harinee Manikandan\Downloads\rl_synth_selection_production\rl_synth_selection\pipeline.py", line 440, in <module>
+    run_pipeline(
+    └ <function run_pipeline at 0x00000279CA23E710>
+
+  File "C:\Users\Harinee Manikandan\Downloads\rl_synth_selection_production\rl_synth_selection\pipeline.py", line 316, in run_pipeline
+    probs            = get_probabilities(model, tokenizer, batch_texts, device)
+                       │                 │      │          │            └ 'cpu'
+                       │                 │      │          └ ['Id: 67 | SepalLengthCm: 5.1 | SepalWidthCm: 3.5 | PetalLengthCm: 1.6 | PetalWidthCm: 0.3', 'Id: 149 | SepalLengthCm: 6.9 | ...
+                       │                 │      └ DistilBertTokenizer(name_or_path='distilbert-base-uncased', vocab_size=30522, model_max_length=512, is_fast=False, padding_si...
+                       │                 └ DistilBertForSequenceClassification(
+                       │                     (distilbert): DistilBertModel(
+                       │                       (embeddings): Embeddings(
+                       │                         (word_embeddings): ...
+                       └ <function get_probabilities at 0x00000279C9EC5B40>
+
+  File "C:\Users\Harinee Manikandan\AppData\Local\Programs\Python\Python310\lib\site-packages\torch\utils\_contextlib.py", line 116, in decorate_context
+    return func(*args, **kwargs)
+           │     │       └ {}
+           │     └ (DistilBertForSequenceClassification(
+           │         (distilbert): DistilBertModel(
+           │           (embeddings): Embeddings(
+           │             (word_embeddings):...
+           └ <function get_probabilities at 0x00000279C9EC5AB0>
+
+  File "C:\Users\Harinee Manikandan\Downloads\rl_synth_selection_production\rl_synth_selection\classifier\evaluate.py", line 60, in get_probabilities
+    max_length=cfg.MAX_SEQ_LEN,
+               └ <module 'config' from 'C:\\Users\\Harinee Manikandan\\Downloads\\rl_synth_selection_production\\rl_synth_selection\\config.py'>
+
+AttributeError: module 'config' has no attribute 'MAX_SEQ_LEN'
+2026-04-13 10:57:08 | INFO     | Logs → outputs\pipeline.log
+2026-04-13 10:57:08 | INFO     | ============================================================
+2026-04-13 10:57:08 | INFO     | RL-Guided Synthetic Data Selection — Starting
+2026-04-13 10:57:08 | INFO     | ============================================================
+2026-04-13 10:57:08 | INFO     | LLM: llama-3.1-8b-instant via Groq
+2026-04-13 10:57:08 | INFO     | Device: cpu
+2026-04-13 10:57:09 | INFO     | Step 1: Loading dataset
+2026-04-13 10:57:10 | INFO     | Label column selected: 'Species'
+2026-04-13 10:57:10 | INFO     | Loaded CSV: Iris.csv — 150 rows, 6 columns
+2026-04-13 10:57:10 | INFO     | Detected 3 classes: ['Iris-setosa', 'Iris-versicolor', 'Iris-virginica']
+2026-04-13 10:57:10 | INFO     | Content columns: ['Id', 'SepalLengthCm', 'SepalWidthCm', 'PetalLengthCm', 'PetalWidthCm']
+2026-04-13 10:57:10 | INFO     | Split — Train: 90 | Val: 30 | Test: 30
+2026-04-13 10:57:10 | INFO     | Classes (3): ['Iris-setosa', 'Iris-versicolor', 'Iris-virginica']
+2026-04-13 10:57:10 | INFO     | Content columns: ['Id', 'SepalLengthCm', 'SepalWidthCm', 'PetalLengthCm', 'PetalWidthCm']
+2026-04-13 10:57:10 | INFO     | Step 2: Generating synthetic pool via Groq LLM
+2026-04-13 10:57:10 | INFO     | Generating synthetic pool of 60 rows (target: 20, multiplier: 3x)
+2026-04-13 11:00:11 | INFO     |   Generated 50/60 synthetic rows (0 failed)...
+2026-04-13 11:00:59 | INFO     | Synthetic pool complete: 60 generated, 0 failed (100.0% success rate)
+2026-04-13 11:00:59 | INFO     | Step 3: Pre-computing real data embeddings
+2026-04-13 11:01:04 | INFO     | Step 4: Baseline — real data only
+2026-04-13 11:01:05 | INFO     | ── Real Only ──
+2026-04-13 11:01:19 | DEBUG    |   [train] epoch 1 — avg loss: 1.0905
+2026-04-13 11:01:34 | DEBUG    |   [train] epoch 2 — avg loss: 1.0443
+2026-04-13 11:01:37 | INFO     |   Val F1: 0.1944  |  Test F1: 0.2460
+2026-04-13 11:01:37 | INFO     | Step 5: Naive augmentation — real + all synthetic
+2026-04-13 11:01:37 | INFO     | ── Naive Augmentation ──
+2026-04-13 11:02:07 | DEBUG    |   [train] epoch 1 — avg loss: 1.1058
+2026-04-13 11:02:36 | DEBUG    |   [train] epoch 2 — avg loss: 1.0783
+2026-04-13 11:02:39 | INFO     |   Val F1: 0.6296  |  Test F1: 0.5940
+2026-04-13 11:02:39 | INFO     | Step 6: Thompson Sampling bandit-guided selection
+2026-04-13 11:02:39 | INFO     | ThompsonBandit initialised — Beta(1,1) prior on both arms
+2026-04-13 11:02:58 | DEBUG    |   [train] epoch 1 — avg loss: 1.0945
+2026-04-13 11:03:15 | DEBUG    |   [train] epoch 2 — avg loss: 1.0568
+2026-04-13 11:03:17 | INFO     | [iter 0] Initial val F1: 0.4943
+2026-04-13 11:03:40 | DEBUG    |   [train] epoch 1 — avg loss: 1.1133
+2026-04-13 11:04:02 | DEBUG    |   [train] epoch 2 — avg loss: 1.0682
+2026-04-13 11:04:03 | DEBUG    | Bandit update — arm=1 reward=+0.0000 alpha=[1.0, 1.0] beta=[1.0, 2.0]
+2026-04-13 11:04:03 | INFO     | [iter  1] accepted:  31/50 | curated:   20/20 | val F1: 0.4943 | ΔF1: +0.0000
+2026-04-13 11:04:03 | INFO     | Target of 20 curated rows reached.
+2026-04-13 11:04:03 | INFO     | Final evaluation on test set
+2026-04-13 11:04:05 | INFO     |   Bandit-Guided Test F1: 0.5309
+2026-04-13 11:04:05 | INFO     | Curated synthetic samples → outputs\curated_synthetic_samples.csv
+2026-04-13 11:04:05 | INFO     | Augmented dataset → outputs\augmented_dataset.csv (170 total rows)
+2026-04-13 11:04:05 | INFO     | Experiment report → outputs\experiment_report.json
+2026-04-13 11:20:22 | INFO     | Logs → outputs\pipeline.log
+2026-04-13 11:20:22 | INFO     | ============================================================
+2026-04-13 11:20:22 | INFO     | RL-Guided Synthetic Data Selection — Starting
+2026-04-13 11:20:22 | INFO     | ============================================================
+2026-04-13 11:20:22 | INFO     | LLM: llama-3.1-8b-instant via Groq
+2026-04-13 11:20:22 | INFO     | Device: cpu
+2026-04-13 11:20:24 | INFO     | Step 1: Loading dataset
+2026-04-13 11:20:36 | INFO     | Label column selected: 'sentiment'
+2026-04-13 11:20:36 | INFO     | Loaded CSV: IMDB.csv — 50000 rows, 2 columns
+2026-04-13 11:20:36 | INFO     | Detected 2 classes: ['negative', 'positive']
+2026-04-13 11:20:36 | INFO     | Content columns: ['review']
+2026-04-13 11:20:38 | INFO     | Split — Train: 30000 | Val: 10000 | Test: 10000
+2026-04-13 11:20:38 | INFO     | Classes (2): ['negative', 'positive']
+2026-04-13 11:20:38 | INFO     | Content columns: ['review']
+2026-04-13 11:20:38 | INFO     | Step 2: Generating synthetic pool via Groq LLM
+2026-04-13 11:20:38 | INFO     | Generating synthetic pool of 600 rows (target: 200, multiplier: 3x)
+2026-04-13 11:24:47 | WARNING  | Rate limit hit. Waiting 5s before retry 1...
+2026-04-13 11:25:37 | WARNING  | Pipeline interrupted by user.
+2026-04-13 11:28:11 | INFO     | Logs → outputs\pipeline.log
+2026-04-13 11:28:11 | INFO     | ============================================================
+2026-04-13 11:28:11 | INFO     | RL-Guided Synthetic Data Selection — Starting
+2026-04-13 11:28:11 | INFO     | ============================================================
+2026-04-13 11:28:11 | INFO     | LLM: llama-3.1-8b-instant via Groq
+2026-04-13 11:28:11 | INFO     | Device: cpu
+2026-04-13 11:28:12 | INFO     | Step 1: Loading dataset
+2026-04-13 11:29:00 | INFO     | Label column selected: 'sentiment'
+2026-04-13 11:29:01 | INFO     | Loaded CSV: IMDB.csv — 50000 rows, 2 columns
+2026-04-13 11:29:01 | INFO     | Detected 2 classes: ['negative', 'positive']
+2026-04-13 11:29:01 | INFO     | Content columns: ['review']
+2026-04-13 11:29:02 | INFO     | Split — Train: 30000 | Val: 10000 | Test: 10000
+2026-04-13 11:29:02 | INFO     | Classes (2): ['negative', 'positive']
+2026-04-13 11:29:02 | INFO     | Content columns: ['review']
+2026-04-13 11:29:02 | INFO     | Step 2: Generating synthetic pool via Groq LLM
+2026-04-13 11:29:02 | INFO     | Generating synthetic pool of 600 rows (target: 200, multiplier: 3x)
+2026-04-13 11:38:39 | INFO     |   Generated 50/600 synthetic rows (0 failed)...
+2026-04-13 11:50:06 | INFO     |   Generated 100/600 synthetic rows (0 failed)...
+2026-04-13 11:54:27 | DEBUG    | JSON parse error: Expecting ',' delimiter: line 3 column 26 (char 519) — response was: {
+  "review": "I don't think anyone involved with this production knows the first thing about telling a story. The way the narrative jumps around is like trying to follow a drunk person's thoughts. Th
+2026-04-13 11:54:27 | DEBUG    | Attempt 1: invalid response, retrying...
+2026-04-13 12:00:20 | INFO     |   Generated 150/600 synthetic rows (0 failed)...
+2026-04-13 12:10:16 | INFO     |   Generated 200/600 synthetic rows (0 failed)...
+2026-04-13 12:20:12 | INFO     |   Generated 250/600 synthetic rows (0 failed)...
+2026-04-13 12:30:44 | INFO     |   Generated 300/600 synthetic rows (0 failed)...
+2026-04-13 12:40:40 | INFO     |   Generated 350/600 synthetic rows (0 failed)...
+2026-04-13 12:41:01 | DEBUG    | JSON parse error: Expecting ',' delimiter: line 3 column 26 (char 549) — response was: {
+  "review": "I just wasted 2 hours of my life on this mess. The plot was convoluted, the characters were paper-thin, and the dialogue was cringe-worthy. I've seen higher school productions with bett
+2026-04-13 12:41:01 | DEBUG    | Attempt 1: invalid response, retrying...
+2026-04-13 12:41:34 | DEBUG    | JSON parse error: Expecting ',' delimiter: line 1 column 475 (char 474) — response was: {"review": "I just watched 'The Princess Bride' for the umpteenth time and it still holds up perfectly. The witty banter, the swashbuckling adventures, the heartwarming romance... what's not to love? 
+2026-04-13 12:41:34 | DEBUG    | Attempt 1: invalid response, retrying...
+2026-04-13 12:45:56 | DEBUG    | JSON parse error: Expecting ',' delimiter: line 1 column 369 (char 368) — response was: {"review": "I stumbled upon this movie while browsing through a late-night TV marathon, and I have to say, it's an absolute trainwreck. The plot is convoluted, the acting is cheesy, and the dialogue i
+2026-04-13 12:45:56 | DEBUG    | Attempt 1: invalid response, retrying...
+2026-04-13 12:51:43 | INFO     |   Generated 400/600 synthetic rows (0 failed)...
+2026-04-13 12:56:23 | WARNING  | Rate limit hit. Waiting 5s before retry 1...
+2026-04-13 12:56:28 | WARNING  | Rate limit hit. Waiting 10s before retry 2...
+2026-04-13 12:56:38 | WARNING  | Rate limit hit. Waiting 15s before retry 3...
+2026-04-13 12:56:53 | WARNING  | All retries exhausted for one row — skipping.
+2026-04-13 12:56:54 | WARNING  | Rate limit hit. Waiting 5s before retry 1...
+2026-04-13 12:57:56 | WARNING  | Rate limit hit. Waiting 5s before retry 1...
+2026-04-13 12:58:01 | WARNING  | Rate limit hit. Waiting 10s before retry 2...
+2026-04-13 12:58:11 | WARNING  | Rate limit hit. Waiting 15s before retry 3...
+2026-04-13 12:58:26 | WARNING  | All retries exhausted for one row — skipping.
+2026-04-13 12:58:26 | WARNING  | Rate limit hit. Waiting 5s before retry 1...
+2026-04-13 12:58:32 | WARNING  | Rate limit hit. Waiting 10s before retry 2...
+2026-04-13 12:58:42 | WARNING  | Rate limit hit. Waiting 15s before retry 3...
+2026-04-13 12:58:57 | WARNING  | All retries exhausted for one row — skipping.
+2026-04-13 12:58:57 | WARNING  | Rate limit hit. Waiting 5s before retry 1...
+2026-04-13 12:59:02 | WARNING  | Rate limit hit. Waiting 10s before retry 2...
+2026-04-13 12:59:13 | WARNING  | Rate limit hit. Waiting 15s before retry 3...
+2026-04-13 12:59:28 | WARNING  | All retries exhausted for one row — skipping.
+2026-04-13 12:59:28 | WARNING  | Rate limit hit. Waiting 5s before retry 1...
+2026-04-13 12:59:34 | WARNING  | Rate limit hit. Waiting 10s before retry 2...
+2026-04-13 13:00:42 | WARNING  | Pipeline interrupted by user.
+2026-04-13 13:14:02 | INFO     | Logs → outputs\pipeline.log
+2026-04-13 13:14:02 | INFO     | Logs → outputs\pipeline.log
+2026-04-13 13:14:02 | INFO     | ============================================================
+2026-04-13 13:14:02 | INFO     | RL-Guided Synthetic Data Selection — Starting
+2026-04-13 13:14:02 | INFO     | ============================================================
+2026-04-13 13:14:02 | INFO     | LLM: llama-3.1-8b-instant via Groq
+2026-04-13 13:14:02 | INFO     | Device: cpu
+2026-04-13 13:14:02 | INFO     | Device: cpu
+2026-04-13 13:14:04 | INFO     | Step 1: Loading dataset
+2026-04-13 13:14:04 | INFO     | Step 1: Loading dataset
+2026-04-13 13:14:05 | INFO     | Loaded CSV: C:\Users\HARINE~1\AppData\Local\Temp\tmp0u5wefyu\IMDB.csv — 50000 rows, 2 columns
+2026-04-13 13:14:05 | INFO     | Detected 2 classes: ['negative', 'positive']
+2026-04-13 13:14:05 | INFO     | Loaded CSV: C:\Users\HARINE~1\AppData\Local\Temp\tmpbzqz1097\IMDB.csv — 50000 rows, 2 columns
+2026-04-13 13:14:05 | INFO     | Content columns: ['review']
+2026-04-13 13:14:05 | INFO     | Detected 2 classes: ['negative', 'positive']
+2026-04-13 13:14:05 | INFO     | Content columns: ['review']
+2026-04-13 13:14:09 | INFO     | Split — Train: 30000 | Val: 10000 | Test: 10000
+2026-04-13 13:14:09 | INFO     | Classes (2): ['negative', 'positive']
+2026-04-13 13:14:10 | INFO     | Content columns: ['review']
+2026-04-13 13:14:10 | INFO     | Step 2: Generating synthetic pool via Groq LLM
+2026-04-13 13:14:10 | INFO     | Split — Train: 30000 | Val: 10000 | Test: 10000
+2026-04-13 13:14:10 | INFO     | Generating synthetic pool of 300 rows (target: 100, multiplier: 3x)
+2026-04-13 13:14:10 | INFO     | Classes (2): ['negative', 'positive']
+2026-04-13 13:14:10 | INFO     | Content columns: ['review']
+2026-04-13 13:14:10 | INFO     | Step 2: Generating synthetic pool via Groq LLM
+2026-04-13 13:14:10 | INFO     | Generating synthetic pool of 300 rows (target: 100, multiplier: 3x)
+2026-04-13 13:14:14 | WARNING  | Rate limit hit. Waiting 5s before retry 1...
+2026-04-13 13:14:14 | WARNING  | Rate limit hit. Waiting 5s before retry 1...
+2026-04-13 13:14:19 | WARNING  | Rate limit hit. Waiting 10s before retry 2...
+2026-04-13 13:14:19 | WARNING  | Rate limit hit. Waiting 10s before retry 2...
+2026-04-13 13:14:29 | WARNING  | Rate limit hit. Waiting 15s before retry 3...
+2026-04-13 13:14:44 | WARNING  | All retries exhausted for one row — skipping.
+2026-04-13 13:14:44 | WARNING  | Rate limit hit. Waiting 5s before retry 1...
+2026-04-13 13:14:49 | WARNING  | Rate limit hit. Waiting 10s before retry 2...
+2026-04-13 13:15:00 | WARNING  | Rate limit hit. Waiting 15s before retry 3...
+2026-04-13 13:15:15 | WARNING  | All retries exhausted for one row — skipping.
+2026-04-13 13:15:20 | WARNING  | Rate limit hit. Waiting 15s before retry 3...
+2026-04-13 13:15:35 | WARNING  | All retries exhausted for one row — skipping.
+2026-04-13 13:15:36 | WARNING  | Rate limit hit. Waiting 5s before retry 1...
+2026-04-13 13:15:41 | WARNING  | Rate limit hit. Waiting 10s before retry 2...
+2026-04-13 13:15:43 | WARNING  | Rate limit hit. Waiting 5s before retry 1...
+2026-04-13 13:15:52 | WARNING  | Rate limit hit. Waiting 15s before retry 3...
+2026-04-13 13:16:07 | WARNING  | All retries exhausted for one row — skipping.
+2026-04-13 13:23:46 | INFO     | Logs → outputs\pipeline.log
+2026-04-13 13:23:46 | INFO     | ============================================================
+2026-04-13 13:23:46 | INFO     | RL-Guided Synthetic Data Selection — Starting
+2026-04-13 13:23:46 | INFO     | ============================================================
+2026-04-13 13:23:46 | INFO     | LLM: llama-3.1-8b-instant via Groq
+2026-04-13 13:23:46 | INFO     | Device: cpu
+2026-04-13 13:23:51 | INFO     | Step 1: Loading dataset
+2026-04-13 13:23:52 | INFO     | Loaded CSV: C:\Users\HARINE~1\AppData\Local\Temp\tmpmtikgku6\IMDB.csv — 50000 rows, 2 columns
+2026-04-13 13:23:52 | INFO     | Detected 2 classes: ['negative', 'positive']
+2026-04-13 13:23:52 | INFO     | Content columns: ['review']
+2026-04-13 13:23:54 | INFO     | Split — Train: 30000 | Val: 10000 | Test: 10000
+2026-04-13 13:23:54 | INFO     | Classes (2): ['negative', 'positive']
+2026-04-13 13:23:54 | INFO     | Content columns: ['review']
+2026-04-13 13:23:54 | INFO     | Step 2: Generating synthetic pool via Groq LLM
+2026-04-13 13:23:54 | INFO     | Generating synthetic pool of 300 rows (target: 100, multiplier: 3x)
+2026-04-13 13:24:22 | WARNING  | Rate limit hit. Waiting 5s before retry 1...
+2026-04-13 13:25:59 | DEBUG    | JSON parse error: Invalid \escape: line 1 column 394 (char 393) — response was: {"review": "While I wasn't a huge fan of the over-the-top special effects, I felt that the cinematography and art direction in 'Barbarella' truly captured the essence of the 1960s space age aesthetic 
+2026-04-13 13:25:59 | DEBUG    | Attempt 1: invalid response, retrying...
+2026-04-13 13:26:11 | DEBUG    | JSON parse error: Expecting ',' delimiter: line 1 column 61 (char 60) — response was: {"review": "This remake of the 1920's Italian silent film, "The Last Days of Pompeii," is a visually stunning, if somewhat uneven, epic that struggles to balance its ambitious scope with coherence. Th
+2026-04-13 13:26:11 | DEBUG    | Attempt 2: invalid response, retrying...
