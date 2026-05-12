@@ -1,0 +1,30 @@
+{
+  "dataset": "C:\\Users\\HARINE~1\\AppData\\Local\\Temp\\tmpuem1fml0\\Iris_noisy.csv",
+  "bandit_guided": {
+    "test_f1": 0.5008354218880534,
+    "bandit_summary": {
+      "total_steps": 40,
+      "total_accepts": 40,
+      "total_rejects": 0,
+      "acceptance_rate": 1.0,
+      "alpha": [
+        1.0,
+        31.0
+      ],
+      "beta": [
+        1.0,
+        21.0
+      ],
+      "cumulative_reward_accept": 30.0,
+      "cumulative_reward_reject": 0.0
+    }
+  },
+  "baseline_real_only": {
+    "val_f1": 0.25,
+    "test_f1": 0.3953962703962704
+  },
+  "naive_augmentation": {
+    "val_f1": 0.4481481481481482,
+    "test_f1": 0.5250676097358019
+  }
+}
