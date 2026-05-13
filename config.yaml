@@ -1,0 +1,55 @@
+# config.yaml
+# ─────────────────────────────────────────────────────────────────────
+# All non-sensitive configuration lives here.
+# Sensitive values (API keys) go in .env — never here.
+# ─────────────────────────────────────────────────────────────────────
+
+# ── Classifier ───────────────────────────────────────────────────────
+classifier_model: "logistic_regression"
+max_seq_len: 128
+train_epochs: 3
+train_batch_size: 16
+learning_rate: 0.00002
+
+# ── Embeddings (semantic novelty) ────────────────────────────────────
+embedding_model: "all-MiniLM-L6-v2"
+
+# ── Synthetic Generation ─────────────────────────────────────────────
+synth_pool_multiplier: 3        # ✅ more pool candidates → reject decisions are more meaningful
+synth_batch_size: 15              # ✅ larger batch → less noisy reward (was 10)
+llm_temperature: 0.85
+llm_max_tokens: 512
+llm_max_retries: 5            # ✅ more retries
+llm_retry_wait: 15            # ✅ longer wait
+# ── Pipeline ─────────────────────────────────────────────────────────
+num_iterations: 30              # ✅ more rounds for bandit to converge (was 20)
+random_seed: 42
+min_real_samples: 30         # minimum rows required in user CSV
+early_stop_patience: 8        # ✅ more patience before giving up (was 5)
+early_stop_delta: 0.005       # ✅ ignore noise, require real improvement (was 0.001)
+
+# ── Data Splits ──────────────────────────────────────────────────────
+val_ratio: 0.2
+test_ratio: 0.2
+
+# ── Outputs ──────────────────────────────────────────────────────────
+output_dir: "outputs"
+
+# ── RL agent (optional) ────────────────────────────────────────────────
+# If rl_policy_path exists under the project directory, pipeline uses the PPO
+# policy to choose generate / filter / retrain / evaluate / stop. Otherwise
+# the Thompson bandit path is used.
+rl_policy_path: "best_model.zip"
+# If set and the file exists, observations are normalized with these stats
+# (must match how the policy was trained). Leave empty to pass raw obs.
+rl_vecnormalize_path: "vecnormalize_final.pkl"
+# Episode cap (PPO often finishes in ~15–25 steps)
+rl_max_steps: 100
+# Budget: set rl_budget_scale_with_data: false to use rl_total_budget only.
+rl_total_budget: 300
+rl_budget_scale_with_data: true
+rl_budget_base: 80
+rl_budget_per_target_row: 1.2
+rl_budget_per_real_row: 0.35
+rl_budget_min: 120
+rl_budget_max: 900
