@@ -100,3 +100,4 @@ Desktop.ini
 
 # ── Sample / local data (optional — remove lines to commit datasets) ─
 Iris.csv
+IMDB_noisy_small.csv
