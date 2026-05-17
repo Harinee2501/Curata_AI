@@ -8,13 +8,14 @@ export default function Results({ results, currentJob }) {
 
   const baseline = results.baseline_test_f1 ?? null;
   const naive    = results.naive_test_f1    ?? null;
-  const bandit   = results.bandit_test_f1   ?? null;
+  const bestVal  = results.best_val_f1      ?? null;
+  const bandit   = bestVal ?? results.bandit_test_f1 ?? null;
   const bs       = results.bandit_summary   ?? {};
 
   const methods = [
     { key: "baseline", label: "Baseline", sub: "Real data only", f1: baseline, color: "#4a5568" },
     { key: "naive",    label: "Naive Aug.", sub: "All synthetic added", f1: naive, color: "#667eea", delta: baseline },
-    { key: "bandit",   label: "Curata", sub: "Bandit-guided selection", f1: bandit, color: "#48bb78", delta: baseline, highlight: true },
+    { key: "bandit",   label: "Curata", sub: bestVal ? "Best checkpoint F1" : "Bandit-guided selection", f1: bandit, color: "#48bb78", delta: baseline, highlight: true },
   ];
 
   const maxF1 = Math.max(...methods.map(m => m.f1 ?? 0));

@@ -20,6 +20,13 @@ export default function App() {
   const [jobHistory, setJobHistory] = useState([]);
   const [jobHistoryLoading, setJobHistoryLoading] = useState(false);
   const [jobHistoryError, setJobHistoryError] = useState("");
+  const [theme, setTheme] = useState("dark");
+
+  useEffect(() => {
+    document.documentElement.setAttribute("data-theme", theme);
+  }, [theme]);
+
+  const toggleTheme = () => setTheme(t => t === "dark" ? "light" : "dark");
 
   const refreshJobList = useCallback(async () => {
     setJobHistoryError("");
@@ -102,6 +109,8 @@ export default function App() {
         setTextCol={setTextCol}
         onJobSubmitted={handleJobSubmitted}
         hasResults={!!jobResults}
+        theme={theme}
+        onToggleTheme={toggleTheme}
       />
       <main className="main-content">
         {activeTab === "upload" && (
@@ -157,13 +166,30 @@ function UploadLanding({ onFileUpload }) {
   return (
     <div className="upload-landing">
       <div className="landing-hero">
-        <div className="landing-badge">AUTONOMOUS DATA CURATION</div>
+        <div className="landing-badge">
+          <span className="badge-dot" />
+          AUTONOMOUS DATA CURATION
+        </div>
         <h1 className="landing-title">
           Curata <span className="title-accent">AI</span>
         </h1>
         <p className="landing-subtitle">
           LLM-driven synthesis · Thompson Sampling filtration · PPO agent control
         </p>
+        <div className="landing-stats">
+          <div className="stat-pill-hero">
+            <span className="stat-value">3×</span>
+            <span className="stat-label">Dataset growth</span>
+          </div>
+          <div className="stat-pill-hero">
+            <span className="stat-value">94%</span>
+            <span className="stat-label">Quality retention</span>
+          </div>
+          <div className="stat-pill-hero">
+            <span className="stat-value">↑F1</span>
+            <span className="stat-label">Classifier boost</span>
+          </div>
+        </div>
       </div>
 
       <div
@@ -185,12 +211,12 @@ function UploadLanding({ onFileUpload }) {
           onChange={e => processFile(e.target.files[0])}
         />
         <div className="drop-icon">
-          <svg width="48" height="48" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5">
-            <path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M17 8l-5-5-5 5M12 3v12" strokeLinecap="round" strokeLinejoin="round"/>
+          <svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+            <path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M17 8l-5-5-5 5M12 3v12"/>
           </svg>
         </div>
         <p className="drop-text">{dragging ? "Drop it" : "Drop your labeled CSV"}</p>
-        <p className="drop-hint">or click to browse · minimum 30 rows</p>
+        <p className="drop-hint">or <span className="drop-link">click to browse</span> · minimum 30 rows</p>
       </div>
 
       <div className="pipeline-steps">
@@ -200,11 +226,19 @@ function UploadLanding({ onFileUpload }) {
           { num: "03", label: "Orchestrate", desc: "PPO agent governs iterations — generate, filter, retrain, evaluate, stop" },
         ].map(s => (
           <div key={s.num} className="step-card">
-            <span className="step-num">{s.num}</span>
+            <div className="step-num-wrap">
+              <span className="step-num">{s.num}</span>
+            </div>
             <span className="step-label">{s.label}</span>
             <span className="step-desc">{s.desc}</span>
           </div>
         ))}
+      </div>
+
+      <div className="landing-footer-pills">
+        <span className="footer-pill">⊙ Production-grade pipeline</span>
+        <span className="footer-pill">⊕ Data stays local</span>
+        <span className="footer-pill">⚡ Async job execution</span>
       </div>
     </div>
   );
