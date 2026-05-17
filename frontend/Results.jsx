@@ -29,6 +29,7 @@ export default function Results({ results, currentJob }) {
         <div>
           <h2 className="page-title">Results</h2>
           <p className="page-sub">Dataset: <strong>{results.dataset || "—"}</strong></p>
+          <p className="page-sub">Classifier: <strong>{currentJob?.classifier_model || results.classifier_model || "—"}</strong></p>
         </div>
         <div className="stat-pills">
           <div className="stat-pill success">

@@ -13,6 +13,7 @@
 # -------------------------------------------------------------------
 
 import numpy as np
+from loguru import logger
 
 
 def compute_verifier_confidence(
@@ -33,7 +34,20 @@ def compute_verifier_confidence(
     confidence : np.ndarray (N,) in [0, 1]
         Probability assigned to the label claimed by the generator.
         High = label is likely correct.
+
+    FIX: label indices are clipped to [0, num_classes-1] before indexing
+    to avoid silent IndexError on label encoding mismatches (e.g. when a
+    synthetic row carries a label string that maps to an out-of-range int).
     """
-    indices    = np.array(assigned_labels)
+    num_classes = probs.shape[1]
+    indices = np.clip(np.array(assigned_labels), 0, num_classes - 1)
+
+    if not np.array_equal(indices, np.array(assigned_labels)):
+        logger.warning(
+            "[verifier] Some assigned_labels were out of range for "
+            f"num_classes={num_classes} — clipped to valid range. "
+            "Check label encoding in _label_str_to_int."
+        )
+
     confidence = probs[np.arange(len(probs)), indices]
     return confidence

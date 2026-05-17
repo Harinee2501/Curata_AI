@@ -55,10 +55,6 @@ coverage.xml
 .ipynb_checkpoints/
 *.ipynb_checkpoints
 
-# ── ML / RL artifacts (large binaries — regenerate locally) ───────────
-best_model.zip
-vecnormalize_final.pkl
-vecnormalize_*.pkl
 
 # Uncomment if you keep checkpoints next to the repo:
 # *.pt
@@ -100,3 +96,6 @@ Desktop.ini
 
 # ── Sample / local data (optional — remove lines to commit datasets) ─
 Iris.csv
+IMDB_noisy_small.csv
+Iris.csv
+outputs

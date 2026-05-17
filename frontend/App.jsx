@@ -10,7 +10,9 @@ export default function App() {
   const [activeTab, setActiveTab] = useState("upload");
   const [uploadedFile, setUploadedFile] = useState(null);
   const [csvPreview, setCsvPreview] = useState(null);
-  const [targetSize, setTargetSize] = useState(200);
+  const [augmentationMode, setAugmentationMode] = useState("balanced");
+  const [classifierModel, setClassifierModel] = useState("logistic_regression");
+  const [availableClassifiers, setAvailableClassifiers] = useState({});
   const [labelCol, setLabelCol] = useState("");
   const [textCol, setTextCol] = useState("");
   const [currentJob, setCurrentJob] = useState(null);
@@ -34,9 +36,21 @@ export default function App() {
     }
   }, []);
 
+  const fetchAvailableClassifiers = useCallback(async () => {
+    try {
+      const res = await fetch(`${API_BASE}/classifiers`);
+      if (!res.ok) throw new Error(`HTTP ${res.status}`);
+      const data = await res.json();
+      setAvailableClassifiers(data);
+    } catch (e) {
+      console.error("Failed to fetch classifiers:", e);
+    }
+  }, []);
+
   useEffect(() => {
     refreshJobList();
-  }, [refreshJobList]);
+    fetchAvailableClassifiers();
+  }, [refreshJobList, fetchAvailableClassifiers]);
 
   useEffect(() => {
     if (activeTab === "history") refreshJobList();
@@ -76,8 +90,11 @@ export default function App() {
         setActiveTab={setActiveTab}
         uploadedFile={uploadedFile}
         onFileUpload={handleFileUpload}
-        targetSize={targetSize}
-        setTargetSize={setTargetSize}
+        augmentationMode={augmentationMode}
+        setAugmentationMode={setAugmentationMode}
+        classifierModel={classifierModel}
+        setClassifierModel={setClassifierModel}
+        availableClassifiers={availableClassifiers}
         csvPreview={csvPreview}
         labelCol={labelCol}
         setLabelCol={setLabelCol}

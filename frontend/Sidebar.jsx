@@ -4,7 +4,9 @@ import { API_BASE } from "./apiConfig";
 export default function Sidebar({
   activeTab, setActiveTab,
   uploadedFile, onFileUpload,
-  targetSize, setTargetSize,
+  augmentationMode, setAugmentationMode,
+  classifierModel, setClassifierModel,
+  availableClassifiers,
   csvPreview, labelCol, setLabelCol,
   textCol, setTextCol,
   onJobSubmitted, hasResults
@@ -37,7 +39,8 @@ export default function Sidebar({
       const form = new FormData();
       form.append("csv_file", uploadedFile);
       form.append("label_col", labelCol);
-      form.append("target_size", targetSize);
+      form.append("augmentation_mode", augmentationMode);
+      form.append("classifier_model", classifierModel);
       if (textCol && textCol.trim()) {
         form.append("text_col", textCol.trim());
       }
@@ -137,20 +140,42 @@ export default function Sidebar({
 
         <div className="control-group">
           <label className="control-label">
-            Target Synthetic Rows
-            <span className="control-value">{targetSize}</span>
+            Augmentation Mode
+            <span className="control-value">{augmentationMode}</span>
           </label>
-          <input
-            type="range"
-            min={10}
-            max={500}
-            step={10}
-            value={targetSize}
-            onChange={e => setTargetSize(Number(e.target.value))}
-            className="control-range"
-          />
-          <div className="range-ticks">
-            <span>10</span><span>250</span><span>500</span>
+          <select
+            className="control-select"
+            value={augmentationMode}
+            onChange={e => setAugmentationMode(e.target.value)}
+          >
+            <option value="fast">fast — lower compute, quicker results</option>
+            <option value="balanced">balanced — default middle ground</option>
+            <option value="thorough">thorough — highest quality, slower</option>
+          </select>
+          <div className="mode-note">
+            Choose how aggressively the pipeline augments: pool size, RL steps, and threshold are set automatically.
+          </div>
+        </div>
+
+        <div className="control-group">
+          <label className="control-label">
+            Classifier Model
+            <span className="control-value">{classifierModel}</span>
+          </label>
+          <select
+            className="control-select"
+            value={classifierModel}
+            onChange={e => setClassifierModel(e.target.value)}
+          >
+            <option value="logistic_regression">Logistic Regression — Fast linear baseline</option>
+            <option value="naive_bayes">Naive Bayes — Very fast, high-dimensional data</option>
+            <option value="random_forest">Random Forest — Robust ensemble, handles non-linearity</option>
+            <option value="xgboost">XGBoost — Gradient boosting, strong on tabular data</option>
+            <option value="lightgbm">LightGBM — Gradient boosting, fast on large datasets</option>
+            <option value="svm">SVM — RBF kernel, strong on small datasets</option>
+          </select>
+          <div className="mode-note">
+            The model trained on your dataset. Affects pipeline quality and runtime.
           </div>
         </div>
 
